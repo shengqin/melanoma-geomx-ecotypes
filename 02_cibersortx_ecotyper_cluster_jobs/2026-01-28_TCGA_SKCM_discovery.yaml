@@ -1,0 +1,39 @@
+default :
+  Input :
+    Discovery dataset name : "2026-01-28_TCGA_SKCM_discovery"
+    Expression matrix : "/oak/stanford/groups/emoding/analysis/brian/Cibersort/bulk_input/2025-01-29_SKCM_coding_symbol_TPM.txt"
+    #Possible values: "Carcinoma_Fractions", "Lymphoma_Fractions" or a path to a file containing the precomputed cell fractions
+    Cell type fractions : "/oak/stanford/groups/emoding/analysis/brian/Ecotyper/datasets/2026-01-28_TCGA_SKCM_fraction.txt"
+    #Cell type fractions : "/oak/stanford/groups/emoding/analysis/brian/Ecotyper/datasets/2025-07-25_cHL_fraction_v18_adj.txt"
+    #Possible values: "RNA-seq", "Affymetrix", "Other"
+    Expression type : "RNA-seq"
+    #This field can also be set to "NULL"
+    Annotation file : "/oak/stanford/groups/emoding/analysis/brian/Ecotyper/datasets/2025-04-15_TCGA_SKCM_Annotation.txt"
+    #This field can also be set to "NULL"
+    Annotation file column to scale by : "NULL"
+    #This field can also be set to "NULL"
+    Annotation file column(s) to plot : ["TUMOR_TISSUE_SITE", "SAMPLE_TYPE", "ANEUPLOIDY_Category", "TMB_Category"]
+    CIBERSORTx username : "YOUR_CIBERSORTX_EMAIL"
+    CIBERSORTx token : "YOUR_CIBERSORTX_TOKEN"
+
+  Output :
+    Output folder : "2026-01-28_TCGA_SKCM_output_95_6_4"
+
+  Pipeline settings :
+    #Pipeline steps:
+    #   step 1 (cell type fraction estimation)
+    #   step 2 (cell type expression purification)
+    #   step 3 (cell state discovery)
+    #   step 4 (choosing the number of cell states)
+    #   step 5 (extracting cell state information)
+    #   step 6 (cell state QC filter)
+    #   step 7 (advanced cell state QC filter)
+    #   step 8 (ecotype discovery)
+    Pipeline steps to skip : [7] # by default, step 7 is skipped
+    Number of threads : 50
+    Number of NMF restarts : 60
+    Maximum number of states per cell type : 6
+    Cophenetic coefficient cutoff : 0.95
+    CIBERSORTx fractions Singularity path : "/oak/stanford/groups/emoding/analysis/brian/Ecotyper/fractions.sif"
+    CIBERSORTx hires Singularity path : "/oak/stanford/groups/emoding/analysis/brian/Ecotyper/hires.sif"
+    Minimum number of states in ecotypes : 4
